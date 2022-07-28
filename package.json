@@ -2,7 +2,7 @@
   "name": "vue-wgh-components",
   "description": "A Component Library for Vue.js.",
   "version": "1.0.0",
-  "main": "components/index.js",
+  "main": "src/components/index.js",
   "type": "module",
   "scripts": {
     "serve": "vite",
@@ -20,6 +20,7 @@
     "url": "https://github.com/wghe110/global--components/issues"
   },
   "dependencies": {
+    "echarts": "^5.3.3",
     "normalize.css": "^8.0.1",
     "sass": "^1.53.0"
   },
