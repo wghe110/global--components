@@ -6,7 +6,7 @@
 
     <div class="content">
       <aside class="aside" v-if="showAside">
-        左侧 showAside={{ showAside }}
+        <aside-bar></aside-bar>
       </aside>
 
       <div class="inner-content">
@@ -28,6 +28,7 @@ import {
   initToken,
   createLoading,
 } from "./pre-load";
+import AsideBar from './aside.vue'
 
 export default {
   beforeRouteEnter: async (to, from) => {
@@ -48,11 +49,10 @@ export default {
       return false;
     }
   },
+  components: {
+    AsideBar,
+  },
   setup() {
-    const store = globalStore()
-    setTimeout(() => {
-      store.showAside = false;
-    }, 5000)
   },
   computed: {
     ...mapState(globalStore, ['showHeader', 'showAside'])

@@ -5,10 +5,16 @@ export default [
     children: [
       {
         path: '/jsx',
+        meta: {
+          title: 'jsx'
+        },
         component: () => import('@/views/layout/jsx/index.vue')
       },
       {
         path: '/demo',
+        meta: {
+          title: 'demo'
+        },
         component: () => import('@/views/demo/index.vue')
       },
     ]

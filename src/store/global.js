@@ -3,7 +3,7 @@ import { defineStore } from 'pinia'
 const globalStore = defineStore('global', {
   state() {
     return {
-      showHeader: true,
+      showHeader: false,
       showAside: true,
     }
   }

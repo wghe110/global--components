@@ -4,6 +4,10 @@ import router from './router'
 import { createPinia } from 'pinia'
 const pinia = createPinia()
 
+// element-plus
+import ElementPlus from 'element-plus'
+import 'element-plus/dist/index.css'
+
 // normalize.css
 import 'normalize.css'
 
@@ -14,5 +18,6 @@ const app = createApp(App)
 app.use(router)
 app.use(pinia)
 app.use(globalPlugins)
+app.use(ElementPlus)
 
 app.mount('#app')
