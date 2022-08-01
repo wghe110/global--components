@@ -11,11 +11,18 @@ export default [
         component: () => import('@/views/layout/jsx/index.vue')
       },
       {
-        path: '/demo',
+        path: '/auto-scroll',
         meta: {
-          title: 'demo'
+          title: 'auto-scroll'
         },
-        component: () => import('@/views/demo/index.vue')
+        component: () => import('@/views/auto-scroll/index.vue')
+      },
+      {
+        path: '/mobile-echarts',
+        meta: {
+          title: 'mobile-echarts'
+        },
+        component: () => import('@/views/mobile-echarts/index.vue')
       },
     ]
   },

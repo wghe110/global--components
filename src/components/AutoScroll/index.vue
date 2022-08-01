@@ -5,78 +5,81 @@
 </template>
 
 <script>
+import { ref, watch, nextTick, onBeforeUnmount } from 'vue'
+
 export default {
   props: {
     speed: {
       type: Number,
-      default: 30 // 30px/秒
+      default: 60 // 60px/秒
     },
     text: {
       type: String,
       default: ''
     }
   },
-  data() {
-    return {
-      scrollWidth: 0,
-      offsetWidth: 0,
-      moved: true,
-    }
-  },
-  watch: {
-    text: {
-      handler(val) {
-        this.initFn()
-      },
-      immediate: true,
-    }
-  },
-  beforeUnmount() {
-    const scrollEle = this.$refs.scrollRef.firstElementChild;
-    scrollEle.removeEventListener('transitionend', this.setScrollLenFn)
-  },
-  methods: {
-    initFn() {
-      this.$nextTick(() => {
-        const ele = this.$refs.scrollRef
-        if (ele) {
-          this.scrollWidth = ele.scrollWidth
-          this.offsetWidth = ele.offsetWidth
-          this.moved = false;
+  setup(props, context) {
+    const scrollWidth = ref(0)
+    const clientWidth = ref(0)
+    const scrollRef = ref()
 
-          if (this.scrollWidth > this.offsetWidth) {
-            this.scrollFn()
+    const handleEndFn = () => {
+      const scrollEle = scrollRef.value.firstElementChild;
+      scrollEle.removeEventListener('transitionend', handleEndFn)
+
+      scrollEle.style.transitionDuration = `0s`
+      scrollEle.style.transform = `translateX(${clientWidth.value}px)`
+
+      setTimeout(startMoveFn)
+    }
+
+    const stopMoveFn = () => {
+      scrollRef.value.firstElementChild.removeEventListener('transitionend', handleEndFn)
+    }
+
+    const startMoveFn = () => {
+      const scrollEle = scrollRef.value.firstElementChild;
+      const len = scrollWidth.value + clientWidth.value
+      const during = len / props.speed;
+
+      scrollEle.style.transitionDuration = `${during}s`
+      scrollEle.style.transform = `translateX(${-scrollWidth.value}px)`
+
+      // scrollEle.removeEventListener('transitionend', handleEndFn)
+      scrollEle.addEventListener('transitionend', handleEndFn)
+    }
+
+    const initFn = () => {
+      nextTick(() => {
+        const ele = scrollRef.value
+        if (ele) {
+          scrollWidth.value = ele.scrollWidth
+          clientWidth.value = ele.clientWidth
+
+          if (scrollWidth.value > clientWidth.value) {
+            const scrollEle = scrollRef.value.firstElementChild;
+            scrollEle.style.transitionDuration = `0s`
+            scrollEle.style.transform = `translateX(${clientWidth.value}px)`
+
+            setTimeout(startMoveFn)
           } else {
-            ele.firstElementChild.removeEventListener('transitionend', this.setScrollLenFn)
+            stopMoveFn()
           }
         }
       })
-    },
-    scrollFn() {
-      const scrollEle = this.$refs.scrollRef.firstElementChild;
+    }
 
-      this.setScrollLenFn();
-      scrollEle.removeEventListener('transitionend', this.setScrollLenFn)
-      scrollEle.addEventListener('transitionend', this.setScrollLenFn)
-    },
-    setScrollLenFn() {
-      const scrollEle = this.$refs.scrollRef.firstElementChild;
-      let during = 0;
-      let len = this.offsetWidth
+    // 监听入参变化
+    watch(props.text, initFn)
+    watch(props.speed, initFn)
+    initFn()
 
-      if (!this.moved) {
-        during = this.scrollWidth / this.speed;
-        len = -this.scrollWidth
-      } else {
-        setTimeout(this.setScrollLenFn, 0)
-      }
+    onBeforeUnmount(stopMoveFn)
 
-      scrollEle.style.transitionDuration = `${during}s`
-      scrollEle.style.transform = `translateX(${len}px)`
-
-      this.moved = !this.moved;
-    },
-  }
+    return {
+      scrollRef,
+    }
+  },
 }
 </script>
 

@@ -1,5 +1,5 @@
 <template>
-    <div class="chart" ref="chartRef" :style="{ height }" ></div>
+  <div class="chart" ref="chartRef" :style="{ height }"></div>
 </template>
 
 <script>
@@ -64,7 +64,7 @@ export default {
 
     window.addEventListener("resize", this.resetFn);
   },
-  beforeDestroy() {
+  beforeUnmount() {
     window.removeEventListener("resize", this.resetFn);
   },
   watch: {
@@ -95,17 +95,19 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .chart-out{
+.chart-out {
+  height: 100%;
+  position: relative;
+
+  .empty {
     height: 100%;
-    position: relative;
-    .empty{
-      height: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    .chart{
-      width: 100%;
-    }
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
+
+  .chart {
+    width: 100%;
+  }
+}
 </style>
