@@ -3,6 +3,7 @@ import MobileEcharts from './MobileEcharts/index.vue'
 import Tinymce from './Tinymce/index.vue'
 import AutoScroll from './AutoScroll/index.vue'
 import AutoTooltip from './AutoTooltip/index.vue'
+import Watermark from './Watermark/index.jsx'
 
 export default {
   install: (app, options) => {
@@ -16,5 +17,6 @@ export default {
     app.component('wgh-tinymce', Tinymce)
     app.component('wgh-auto-scroll', AutoScroll)
     app.component('wgh-auto-tooltip', AutoTooltip)
+    app.component('wgh-watermark', Watermark)
   }
 }

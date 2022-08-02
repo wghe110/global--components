@@ -38,6 +38,13 @@ export default [
         },
         component: () => import('@/views/tinymce/index.vue')
       },
+      {
+        path: '/watermark',
+        meta: {
+          title: 'watermark'
+        },
+        component: () => import('@/views/watermark/index.vue')
+      },
     ]
   },
   {
