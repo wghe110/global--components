@@ -24,6 +24,20 @@ export default [
         },
         component: () => import('@/views/mobile-echarts/index.vue')
       },
+      {
+        path: '/echarts',
+        meta: {
+          title: 'echarts'
+        },
+        component: () => import('@/views/echarts/index.vue')
+      },
+      {
+        path: '/tinymce',
+        meta: {
+          title: 'tinymce'
+        },
+        component: () => import('@/views/tinymce/index.vue')
+      },
     ]
   },
   {
