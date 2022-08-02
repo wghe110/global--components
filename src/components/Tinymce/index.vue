@@ -39,6 +39,6 @@ export default {
 
  <style lang="scss" scoped>
  .editor-box {
-   height: 100%;
+   //  height: 100%;
  }
  </style>
