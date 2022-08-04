@@ -35,6 +35,10 @@ export default {
       type: Number,
       default: undefined
     },
+    imageOpacity: {
+      type: Number,
+      default: 1
+    },
     fontSize: {
       type: Number,
       default: 14
@@ -95,6 +99,10 @@ export default {
 
     watchEffect(() => {
       fontsReadyRef.value
+      props.imageWidth
+      props.imageHeight
+      props.imageOpacity
+
       const ratio = getRatio(ctx)
 
       const canvasWidth = props.width * ratio
@@ -106,6 +114,7 @@ export default {
 
       if (ctx) {
         ctx.translate(0, 0)
+        ctx.rotate(props.rotate * (Math.PI / 180))
         if (props.image) {
           // 图片
           const img = new Image()
@@ -114,19 +123,18 @@ export default {
           img.src = props.image
           img.onload = () => {
             ctx.globalAlpha = props.imageOpacity
-            const { imageWidth, imageHeight } = props
             ctx.drawImage(
               img,
               canvasOffsetLeft,
               canvasOffsetTop,
-              (props.imageWidth ||
-                (imageHeight
-                  ? (img.width * imageHeight) / img.height
-                  : img.width)) * ratio,
-              (props.imageHeight ||
-                (imageWidth
-                  ? (img.height * imageWidth) / img.width
-                  : img.height)) * ratio
+              (
+                props.imageWidth ||
+                (props.imageHeight ? (img.width * props.imageHeight) / img.height : img.width)
+              ) * ratio,
+              (
+                props.imageHeight ||
+                (props.imageWidth ? (img.height * props.imageWidth) / img.width : img.height)
+              ) * ratio
             )
             base64UrlRef.value = canvas.toDataURL()
           }
@@ -170,7 +178,7 @@ export default {
 
         return (
           <div class="wgh-watermark-box">
-            {context.slots.default()}
+            {context.slots.default ? context.slots.default() : ''}
             {watermarkNode}
           </div>
         )

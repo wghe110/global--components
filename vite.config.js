@@ -11,7 +11,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': '/src',
-      '$p': '/public'
+      '@p': '/public'
     }
   },
   server: {
