@@ -1,20 +1,26 @@
 <template>
   <div class="chart-box">
-    <wgh-mobile-echarts :option="opt_line"></wgh-mobile-echarts>
+    <wgh-echarts :option="opt_line"></wgh-echarts>
   </div>
 
   <div class="chart-box">
-    <wgh-mobile-echarts :option="opt_bar"></wgh-mobile-echarts>
+    <wgh-echarts :option="opt_bar"></wgh-echarts>
   </div>
   <div class="chart-box">
-    <wgh-mobile-echarts :option="opt_pie"></wgh-mobile-echarts>
+    <wgh-echarts :option="opt_pie"></wgh-echarts>
   </div>
   <div class="chart-box">
-    <wgh-mobile-echarts :option="opt_radar"></wgh-mobile-echarts>
+    <wgh-echarts :option="opt_radar"></wgh-echarts>
+  </div>
+  <div class="chart-box pie-3d">
+    <wgh-echarts :option="opt_3d"></wgh-echarts>
   </div>
 </template>
 
 <script>
+import 'echarts-gl';
+import get3dOpt from './pie-3d'
+
 export default {
   setup() {
     const opt_line = {
@@ -133,12 +139,48 @@ export default {
       ]
     }
 
+    const opt_3d = get3dOpt([
+      {
+        name: '单位1评分',
+        value: 33,
+        itemStyle: {
+          opacity: 1,
+          color: '#EAC266'
+        }
+      },
+      {
+        name: '单位2评分',
+        value: 67,
+        itemStyle: {
+          opacity: 1,
+          color: '#CE231A',
+        }
+      },
+      {
+        name: '单位3评分',
+        value: 47,
+        itemStyle: {
+          opacity: 1,
+          color: '#F68F46',
+        }
+      },
+      {
+        name: '单位4评分',
+        value: 267,
+        itemStyle: {
+          opacity: 1,
+          color: '#DF3B4F',
+        }
+      }
+    ], .65, 100, 4)
+
 
     return {
       opt_line,
       opt_bar,
       opt_pie,
       opt_radar,
+      opt_3d,
     }
   }
 }
@@ -152,5 +194,12 @@ export default {
   height: 375px;
   margin: 10px;
   background-color: #ccc;
+}
+
+.pie-3d {
+  background-image: url('@/assets/huan-bg.png');
+  background-size: 100% auto;
+  background-repeat: no-repeat;
+  background-position: center 140px;
 }
 </style>
