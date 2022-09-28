@@ -4,6 +4,7 @@ import Tinymce from './Tinymce/index.vue'
 import AutoScroll from './AutoScroll/index.vue'
 import AutoTooltip from './AutoTooltip/index.vue'
 import Watermark from './Watermark/index.jsx'
+import NumberAnimation from './NumberAnimation/index.vue'
 
 export default {
   install: (app, options) => {
@@ -18,5 +19,6 @@ export default {
     app.component('wgh-auto-scroll', AutoScroll)
     app.component('wgh-auto-tooltip', AutoTooltip)
     app.component('wgh-watermark', Watermark)
+    app.component('wgh-number-animation', NumberAnimation)
   }
 }

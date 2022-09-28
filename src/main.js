@@ -14,6 +14,7 @@ import 'normalize.css'
 // 全局组件/指令/属性或方法
 import globalPlugins from './components/index'
 
+
 const app = createApp(App)
 app.use(router)
 app.use(pinia)

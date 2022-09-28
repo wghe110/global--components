@@ -45,6 +45,13 @@ export default [
         },
         component: () => import('@/views/watermark/index.vue')
       },
+      {
+        path: '/number-animation',
+        meta: {
+          title: 'number-animation'
+        },
+        component: () => import('@/views/number-animation/index.vue')
+      },
     ]
   },
   {
